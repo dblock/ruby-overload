@@ -6,7 +6,7 @@ require 'ruby-overload/version'
 Gem::Specification.new do |s|
   s.name = 'ruby-overload'
   s.version = Ruby::Overload::VERSION
-  s.authors = ['Luca Guidi', 'Daniel Doubrovkine']
+  s.authors = ['Luca Guidi', 'Brandon Weaver', 'Daniel Doubrovkine']
   s.email = 'dblock@dblock.org'
   s.platform = Gem::Platform::RUBY
   s.required_ruby_version = '>= 2.4'

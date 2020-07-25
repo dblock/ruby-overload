@@ -1,6 +1,6 @@
 MIT License
 
-Copyright (c) 2020 Luca Guidi, Daniel Doubrovkine.
+Copyright (c) 2020 Luca Guidi, Brandon Weaver, Daniel Doubrovkine and contributors.
 
 Permission is hereby granted, free of charge, to any person obtaining
 a copy of this software and associated documentation files (the

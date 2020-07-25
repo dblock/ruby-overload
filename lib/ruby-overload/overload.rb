@@ -8,21 +8,34 @@ module Ruby
 
     module ClassMethods
       def method_added(method_name)
-        m = instance_method(method_name)
-        method_id = [method_name, m.arity]
+        if @_recurse_catch
+          @_recurse_catch = nil
+          return
+        end
 
-        @__method_overloading ||= {}
-        @__method_overloading[method_id] = m
+        original_method = instance_method(method_name)
+
+        @_matches ||= Hash.new { |h, k| h[k] = {} }
+        @_matches[method_name][original_method.arity] = original_method
         undef_method method_name
-      end
 
-      def respond_to_matching?(method_name, *args)
-        @__method_overloading&.key?([method_name, args.count])
-      end
+        # Prevent recursive calls to method_added if we're doing it
+        # intentionally here.
+        @_recurse_catch = true
 
-      def matched_call(instance, method_name, *args)
-        m = @__method_overloading[[method_name, args.count]]
-        m.bind(instance).call(*args)
+        # Localize for closure
+        method_matches = @_matches[method_name]
+
+        if @_methods && @_methods[method_name]
+          define_method(method_name, @_methods[method_name])
+        else
+          define_method(method_name) do |*as|
+            method_matches[as.size].bind(self).call(*as)
+          end
+
+          @_methods ||= {}
+          @_methods[method_name] = instance_method(method_name)
+        end
       end
     end
 
