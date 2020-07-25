@@ -4,13 +4,11 @@ Ruby::Overload
 [![Gem Version](http://img.shields.io/gem/v/ruby-overload.svg)](http://badge.fury.io/rb/ruby-overload)
 [![Build Status](https://travis-ci.org/dblock/ruby-overload.svg?branch=master)](https://travis-ci.org/dblock/ruby-overload)
 
-Runtime method overloading behavior for Ruby from [this blog post](https://lucaguidi.com/2020/07/22/ruby-method-overloading/) by [@jodosha](https://www.github.com/jodosha).
+Runtime method overloading behavior for Ruby from [this blog post](https://lucaguidi.com/2020/07/22/ruby-method-overloading/) by [@jodosha](https://www.github.com/jodosha). Incorporates changes from [ptolemybarnes/overlord](https://github.com/ptolemybarnes/overlord) and many ideas from [this tweet](https://twitter.com/jodosha/status/1285850349845254144).
 
 ## Usage
 
-Requires Ruby 2.7+.
-
-```
+```ruby
 require 'ruby-overload'
 
 class Foo

@@ -7,29 +7,32 @@ describe Ruby::Overload do
     Class.new do
       include Ruby::Overload
 
-      attr_reader :called
-
       def call
-        @called ||= []
-        @called << 'call'
+        nil
       end
 
       def call(arg)
-        @called ||= []
-        @called << "call:#{arg}"
+        arg
+      end
+
+      def call(first, second)
+        [first, second]
       end
     end
   end
   subject do
     klass.new
   end
-  it 'calls overloaded methods' do
-    subject.call
-    subject.call 1
-    subject.call 'arg'
-    expect(subject.called).to eq(['call', 'call:1', 'call:arg'])
+  it 'matches on a method with no arguments' do
+    expect(subject.call).to be nil
   end
-  it 'only calls overloaded methods' do
-    expect { subject.call 1, 2 }.to raise_error NoMethodError
+  it 'matches on methods with one argument' do
+    expect(subject.call(1)).to eq 1
+  end
+  it 'matches on methods with two arguments' do
+    expect(subject.call(%w[a b])).to eq(%w[a b])
+  end
+  it 'raises undefined method when method is not defined' do
+    expect { subject.call 1, 2, 3 }.to raise_error NoMethodError
   end
 end

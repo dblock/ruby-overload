@@ -22,7 +22,7 @@ module Ruby
 
       def matched_call(instance, method_name, *args)
         m = @__method_overloading[[method_name, args.count]]
-        m.bind_call(instance, *args)
+        m.bind(instance).call(*args)
       end
     end
 
